@@ -28,6 +28,12 @@ export function LabelerForm({handleAddTag}) {
 			iconLabel: propertyIconLabel.current.value,
 		};
 		handleAddTag(newTag);
+      propertyName.current.value = null
+			propertyValue.current.value = null
+			propertyColorLabel.current.value = null
+			propertyBgColorLabel.current.value = null
+			propertyIcon.current.value = null
+			propertyIconLabel.current.value = null
 	};
 
 	return (

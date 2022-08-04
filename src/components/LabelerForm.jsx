@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
 	Box,
 	Button,
@@ -8,7 +9,27 @@ import {
 	Spacer,
 } from "@chakra-ui/react";
 
-export function LabelerForm() {
+export function LabelerForm({handleAddTag}) {
+	const propertyName = useRef(null);
+	const propertyValue = useRef(null);
+	const propertyIcon = useRef(null);
+	const propertyIconLabel = useRef(null);
+	const propertyColorLabel = useRef(null);
+	const propertyBgColorLabel = useRef(null);
+
+	const handleAddTagClick = () => {
+    const newTag ={
+			propName: propertyName.current.value,
+			type: "property",
+			value: propertyValue.current.value,
+			color: propertyColorLabel.current.value,
+			bgColor: propertyBgColorLabel.current.value,
+			icon: propertyIcon.current.value,
+			iconLabel: propertyIconLabel.current.value,
+		};
+		handleAddTag(newTag);
+	};
+
 	return (
 		<>
 			<Box
@@ -17,24 +38,37 @@ export function LabelerForm() {
 				alignItems="center"
 				justifyItems="center"
 			>
-					<Heading>ASDASDA</Heading>
+				<Heading>Tagger</Heading>
 				<FormControl m={4}>
 					<FormLabel>Property Name</FormLabel>
-					<Input type="text" />
+					<Input ref={propertyName} type="text" />
 				</FormControl>
 				<FormControl m={4}>
 					<FormLabel>Property Value</FormLabel>
-					<Input type="text" />
+					<Input ref={propertyValue} type="text" />
 				</FormControl>
 				<FormControl m={4}>
 					<FormLabel>Icon / Emoji</FormLabel>
-					<Input type="text" />
+					<Input ref={propertyIcon} type="text" />
 				</FormControl>
 				<FormControl m={4}>
 					<FormLabel>Icon / Emoji Label</FormLabel>
-					<Input type="text" />
+					<Input ref={propertyIconLabel} type="text" />
 				</FormControl>
-				<Button colorScheme="purple" alignSelf="end" size="lg">
+				<FormControl m={4}>
+					<FormLabel>Color Label</FormLabel>
+					<Input ref={propertyColorLabel} type="color" />
+				</FormControl>
+				<FormControl m={4}>
+					<FormLabel>Background Color Label</FormLabel>
+					<Input ref={propertyBgColorLabel} type="color" />
+				</FormControl>
+				<Button
+					colorScheme="purple"
+					alignSelf="end"
+					size="lg"
+					onClick={handleAddTagClick}
+				>
 					Add tag
 				</Button>
 			</Box>

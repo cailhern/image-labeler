@@ -1,29 +1,19 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
-
+import { useState } from "react"; 
+import { SimpleGrid } from "@chakra-ui/react";
 import { LabelerForm } from "./LabelerForm";
 import { ImageContainer } from "./ImageContainer";
+import { mockedTags } from "../utils/enums";
 
 export function SummaryView() {
-	const labels = [
-		{
-			id: 1,
-			propName: "Height",
-			type: "property",
-			value: "180",
-			color: "tomato",
-			icon: "📏",
-			iconLabel: "ruler",
-		},
-		{
-			id: 2,
-			propName: "Status",
-			type: "property",
-			value: "Single",
-			color: "tomato",
-			icon: "😀",
-			iconLabel: "emotional-status",
-		},
-	];
+	const [tags, setTags] = useState(mockedTags);
+
+  const handleAddTag = (newTag)=>{
+    debugger;
+    setTags((prevTags)=>{
+      return [...prevTags, newTag] 
+      })
+  }
+
 	return (
 		<>
 			<SimpleGrid
@@ -31,20 +21,11 @@ export function SummaryView() {
 				spacing={10}
 				display="flex"
 				flexDirection="row"
-				alignItems="center"
+				alignItems="flex-start"
 				justifyItems="center"
 			>
-				<Box
-					m={4}
-					boxSize="xl"
-					display="flex"
-					flexDirection="column"
-					alignItems="center"
-					justifyItems="center"
-				>
-					<ImageContainer  {...[labels]}/>
-				</Box>
-				<LabelerForm />
+				<ImageContainer {...tags} />
+				<LabelerForm handleAddTag={handleAddTag} />
 			</SimpleGrid>
 		</>
 	);

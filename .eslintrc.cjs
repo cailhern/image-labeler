@@ -18,7 +18,6 @@ module.exports = {
         'react',
     ],
     rules: {
-        indent: ['error', 4],
         'react/react-in-jsx-scope': 'off',
         'import/prefer-default-export': 'off',
         'react/prop-types': 'off',

@@ -1,39 +1,52 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { ImageTags } from './ImageTags';
-import profileImage from '../assets/images/profile.jpg';
 
-export function ImageContainer(tags) {
-    return (
+export function ImageContainer({
+  tags, imageUrl, imageWidth, containerWidth,
+}) {
+  const [valueContainerWidth, valueContainerHeight] = [
+    `${containerWidth}px`,
+    `${Math.floor((containerWidth * 10) / 7)}px`,
+  ];
+  const [valueImageWidth, valueImageHeight] = [
+    `${imageWidth}px`,
+    `${Math.floor((imageWidth * 10) / 7)}px`,
+  ];
+
+  const containerStyles = {
+    width: valueContainerWidth,
+    height: valueContainerHeight,
+  };
+
+  const bgImageProperties = {
+    backgroundImage: `url(${imageUrl})`,
+    width: valueImageWidth,
+    height: valueImageHeight,
+  };
+  return (
+    <Box
+      m={4}
+      bgColor="gray.600"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyItems="center"
+      borderRadius="2xl"
+      {...containerStyles}
+    >
       <Box
-          m={4}
-          boxSize="xl"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyItems="center"
-        >
-          <Heading
-              size="2xl"
-              display="flex"
-              alignItems="center"
-              justifyItems="center"
-              m={8}
-            >
-              Tinder Labeler
-            </Heading>
-          <Box
-              boxSize="xl"
-              backgroundImage={profileImage}
-              backgroundPosition="center"
-              backgroundSize="cover"
-              display="flex"
-              flexDirection="column"
-              alignItems="flex-end"
-              justifyContent="flex-end"
-              borderRadius="2xl"
-            >
-              <ImageTags {...tags} />
-            </Box>
-        </Box>
-    );
+        backgroundPosition="center"
+        backgroundSize="cover"
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-end"
+        justifyContent="flex-end"
+        borderRadius="2xl"
+        transform="revert"
+        {...bgImageProperties}
+      >
+        <ImageTags {...tags} />
+      </Box>
+    </Box>
+  );
 }

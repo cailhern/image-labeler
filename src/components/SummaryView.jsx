@@ -10,6 +10,7 @@ export function SummaryView() {
   const [imageUrl, setImageUrl] = useState('/src/assets/images/profile.jpg');
   const [imageWidth, setImageWidth] = useState(400);
   const [containerWidth, setContainerWidth] = useState(640);
+  const [imagePosition, setImagePosition] = useState('Top Right');
 
   const handleAddTag = (newTag) => {
     setTags((prevTags) => [...prevTags, newTag]);
@@ -25,6 +26,10 @@ export function SummaryView() {
 
   const handleSetContainerWidth = (containerWidthProvided) => {
     setContainerWidth(containerWidthProvided);
+  };
+
+  const handleSetImagePosition = (imagePositionProvided) => {
+    setImagePosition(imagePositionProvided);
   };
 
   return (
@@ -49,7 +54,11 @@ export function SummaryView() {
       >
         <ImageContainer
           {...{
-            tags, imageUrl, imageWidth, containerWidth,
+            tags,
+            imageUrl,
+            imageWidth,
+            containerWidth,
+            imagePosition,
           }}
         />
         <LabelerForm handleAddTag={handleAddTag} />
@@ -57,6 +66,7 @@ export function SummaryView() {
           handleSetImage={handleSetImage}
           handleSetImageWidth={handleSetImageWidth}
           handleSetContainerWidth={handleSetContainerWidth}
+          handleSetImagePosition={handleSetImagePosition}
         />
       </SimpleGrid>
     </>

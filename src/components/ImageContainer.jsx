@@ -2,7 +2,11 @@ import { Box } from '@chakra-ui/react';
 import { ImageTags } from './ImageTags';
 
 export function ImageContainer({
-  tags, imageUrl, imageWidth, containerWidth,
+  tags,
+  imageUrl,
+  imageWidth,
+  containerWidth,
+  imagePosition,
 }) {
   const [valueContainerWidth, valueContainerHeight] = [
     `${containerWidth}px`,
@@ -22,6 +26,7 @@ export function ImageContainer({
     backgroundImage: `url(${imageUrl})`,
     width: valueImageWidth,
     height: valueImageHeight,
+    imagePosition,
   };
   return (
     <Box
@@ -35,7 +40,7 @@ export function ImageContainer({
       {...containerStyles}
     >
       <Box
-        backgroundPosition="center"
+        backgroundPosition="top left"
         backgroundSize="cover"
         display="flex"
         flexDirection="column"

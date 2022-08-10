@@ -9,23 +9,25 @@ import {
   Input,
   FormControl,
   FormLabel,
-  RadioGroup,
-  Stack,
-  Radio,
   Grid,
-  GridItem,
+  useRadioGroup,
 } from '@chakra-ui/react';
-import { v4 as uuidv4 } from 'uuid';
 import { useRef, useState } from 'react';
 import { FiActivity } from 'react-icons/fi';
+import { v4 as uuidv4 } from 'uuid';
+import { radioPositionValue } from '../utils/enums';
+import { RadioImagePosition } from './RadioImagePosition';
 
 export function ImageToLabel({
   handleSetImage,
   handleSetImageWidth,
   handleSetContainerWidth,
+  handleSetImagePosition,
 }) {
   const [sliderImageWidth, setSliderImageWidth] = useState(400);
   const [sliderContainerWidth, setSliderContainerWidth] = useState(640);
+  const [radioSelected, setRadioSelected] = useState('Top Right');
+
   const baseImage = useRef(null);
 
   const handleSetImageClick = () => {
@@ -46,17 +48,18 @@ export function ImageToLabel({
     setSliderContainerWidth(width);
   };
 
-  const radioArray = [
-    { value: 1, position: 'Top Left', isChecked: true },
-    { value: 2, position: 'Top Center', isChecked: false },
-    { value: 3, position: 'Top Right', isChecked: false },
-    { value: 4, position: 'Center Left', isChecked: false },
-    { value: 5, position: 'Center Center', isChecked: false },
-    { value: 6, position: 'Center Right', isChecked: false },
-    { value: 7, position: 'Bottom Left', isChecked: false },
-    { value: 8, position: 'Bottom Center', isChecked: false },
-    { value: 9, position: 'Bottom Right', isChecked: false },
-  ];
+  const handleRadioselected = (radioSelectedClicked) => {
+    handleSetImagePosition(radioSelectedClicked);
+    setRadioSelected(radioSelectedClicked);
+  };
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: 'positionValue',
+    defaultValue: radioSelected,
+    onChange: handleRadioselected,
+  });
+
+  const group = getRootProps();
 
   return (
     <Box
@@ -66,8 +69,8 @@ export function ImageToLabel({
       justifyItems="center"
     >
       <Heading size="md">
-        Pick position and adjust size of the image according to the
-        gray container
+        Pick position and adjust size of the image according to the gray
+        container
       </Heading>
       <FormControl>
         <FormLabel>Select base image</FormLabel>
@@ -148,50 +151,17 @@ export function ImageToLabel({
           templateColumns="repeat(3, 1fr)"
           templateRows="repeat(3, 1fr)"
           gap={6}
+          {...group}
         >
-          {radioArray.map((radio) => (
-            <GridItem
-              key={uuidv4()}
-              rowSpan={1}
-              colSpan={1}
-              width="32"
-              height="32"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              bg={
-                                        radio.isChecked
-                                          ? 'blue.600'
-                                          : 'blue.200'
-                                    }
-              color={
-                                        radio.isChecked
-                                          ? 'whiteAlpha.900'
-                                          : 'blackAlpha.900'
-                                    }
-              borderRadius="full"
-            >
-              {radio.position}
-            </GridItem>
-          ))}
+          {radioPositionValue.map((value) => {
+            const radio = getRadioProps({ value });
+            return (
+              <RadioImagePosition key={uuidv4()} {...radio}>
+                {value}
+              </RadioImagePosition>
+            );
+          })}
         </Grid>
-        <RadioGroup defaultValue="1" name="positionImage">
-          <Stack spacing={4} direction="row">
-            <Radio value="1">Top Left</Radio>
-            <Radio value="2">Top Center</Radio>
-            <Radio value="3">Top Right</Radio>
-          </Stack>
-          <Stack spacing={4} direction="row">
-            <Radio value="4">Center Left</Radio>
-            <Radio value="5">Center Center</Radio>
-            <Radio value="6">Center Right</Radio>
-          </Stack>
-          <Stack spacing={4} direction="row">
-            <Radio value="7">Bottom Left</Radio>
-            <Radio value="8">Bottom Center</Radio>
-            <Radio value="9">Bottom Right</Radio>
-          </Stack>
-        </RadioGroup>
       </Box>
     </Box>
   );

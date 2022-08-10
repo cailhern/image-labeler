@@ -5,6 +5,7 @@ export function LabelerContainer({
   handleSetImage,
   handleSetImageWidth,
   handleSetContainerWidth,
+  handleSetImagePosition,
 }) {
   const step = 0;
   return (
@@ -14,6 +15,7 @@ export function LabelerContainer({
         handleSetImage={handleSetImage}
         handleSetImageWidth={handleSetImageWidth}
         handleSetContainerWidth={handleSetContainerWidth}
+        handleSetImagePosition={handleSetImagePosition}
       />
     </>
   );

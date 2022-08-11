@@ -21,6 +21,13 @@ export const mockedTags = [
   },
 ];
 
+export const defaultImageValues = {
+  imageUrl: '/src/assets/images/profile.jpg',
+  imageWidth: 400,
+  containerWidth: 640,
+  imagePosition: 'Top Left',
+};
+
 export const radioPositionValue = [
   'Top Left',
   'Top Center',

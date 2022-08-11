@@ -6,16 +6,24 @@ export function LabelerContainer({
   handleSetImageWidth,
   handleSetContainerWidth,
   handleSetImagePosition,
+  imageWidth,
+  containerWidth,
+  imagePosition,
 }) {
   const step = 0;
   return (
     <>
       <LabelStep step={step} />
       <ImageToLabel
-        handleSetImage={handleSetImage}
-        handleSetImageWidth={handleSetImageWidth}
-        handleSetContainerWidth={handleSetContainerWidth}
-        handleSetImagePosition={handleSetImagePosition}
+        {...{
+          handleSetImage,
+          handleSetImageWidth,
+          handleSetContainerWidth,
+          handleSetImagePosition,
+          imageWidth,
+          containerWidth,
+          imagePosition,
+        }}
       />
     </>
   );

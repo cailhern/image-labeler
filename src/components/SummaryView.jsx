@@ -2,15 +2,19 @@ import { useState } from 'react';
 import { Heading, SimpleGrid } from '@chakra-ui/react';
 import { LabelerForm } from './LabelerForm';
 import { ImageContainer } from './ImageContainer';
-import { mockedTags } from '../utils/enums';
+import { mockedTags, defaultImageValues } from '../utils/enums';
 import { LabelerContainer } from './LabelerContainer';
 
 export function SummaryView() {
   const [tags, setTags] = useState(mockedTags);
-  const [imageUrl, setImageUrl] = useState('/src/assets/images/profile.jpg');
-  const [imageWidth, setImageWidth] = useState(400);
-  const [containerWidth, setContainerWidth] = useState(640);
-  const [imagePosition, setImagePosition] = useState('Top Right');
+  const [imageUrl, setImageUrl] = useState(defaultImageValues.imageUrl);
+  const [imageWidth, setImageWidth] = useState(defaultImageValues.imageWidth);
+  const [containerWidth, setContainerWidth] = useState(
+    defaultImageValues.containerWidth,
+  );
+  const [imagePosition, setImagePosition] = useState(
+    defaultImageValues.imagePosition,
+  );
 
   const handleAddTag = (newTag) => {
     setTags((prevTags) => [...prevTags, newTag]);
@@ -63,10 +67,15 @@ export function SummaryView() {
         />
         <LabelerForm handleAddTag={handleAddTag} />
         <LabelerContainer
-          handleSetImage={handleSetImage}
-          handleSetImageWidth={handleSetImageWidth}
-          handleSetContainerWidth={handleSetContainerWidth}
-          handleSetImagePosition={handleSetImagePosition}
+          {...{
+            handleSetImage,
+            handleSetImageWidth,
+            handleSetContainerWidth,
+            handleSetImagePosition,
+            imageWidth,
+            containerWidth,
+            imagePosition,
+          }}
         />
       </SimpleGrid>
     </>

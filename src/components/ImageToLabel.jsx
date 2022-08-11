@@ -23,10 +23,13 @@ export function ImageToLabel({
   handleSetImageWidth,
   handleSetContainerWidth,
   handleSetImagePosition,
+  imageWidth,
+  containerWidth,
+  imagePosition,
 }) {
-  const [sliderImageWidth, setSliderImageWidth] = useState(400);
-  const [sliderContainerWidth, setSliderContainerWidth] = useState(640);
-  const [radioSelected, setRadioSelected] = useState('Top Right');
+  const [sliderImageWidth, setSliderImageWidth] = useState(imageWidth);
+  const [sliderContainerWidth, setSliderContainerWidth] = useState(containerWidth);
+  const [radioSelected, setRadioSelected] = useState(imagePosition);
 
   const baseImage = useRef(null);
 
@@ -86,7 +89,7 @@ export function ImageToLabel({
       <Slider
         min={640}
         max={1080}
-        defaultValue={640}
+        defaultValue={sliderContainerWidth}
         mt={8}
         aria-label="slider"
         onChange={(val) => handleSetContainerWidthChange(val)}
@@ -116,7 +119,7 @@ export function ImageToLabel({
       <Slider
         min={400}
         max={1080}
-        defaultValue={400}
+        defaultValue={sliderImageWidth}
         mt={8}
         aria-label="slider"
         onChange={(val) => handleSetImageWidthChange(val)}

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Heading, SimpleGrid } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 import { LabelerForm } from './LabelerForm';
 import { ImageContainer } from './ImageContainer';
 import { mockedTags, defaultImageValues } from '../utils/enums';
 import { LabelerContainer } from './LabelerContainer';
 
 export function SummaryView() {
+  const { minWidth, maxWidth } = { ...defaultImageValues };
   const [tags, setTags] = useState(mockedTags);
   const [imageUrl, setImageUrl] = useState(defaultImageValues.imageUrl);
   const [imageWidth, setImageWidth] = useState(defaultImageValues.imageWidth);
@@ -37,14 +38,14 @@ export function SummaryView() {
   };
 
   return (
-    <>
+    <Box>
       <Heading
         fontSize="6xl"
         display="flex"
         alignItems="center"
         justifyItems="center"
         justifyContent="center"
-        m={8}
+        overflow="hidden"
       >
         Tinder Labeler
       </Heading>
@@ -75,9 +76,11 @@ export function SummaryView() {
             imageWidth,
             containerWidth,
             imagePosition,
+            minWidth,
+            maxWidth,
           }}
         />
       </SimpleGrid>
-    </>
+    </Box>
   );
 }

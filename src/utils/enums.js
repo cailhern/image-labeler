@@ -26,6 +26,8 @@ export const defaultImageValues = {
   imageWidth: 400,
   containerWidth: 640,
   imagePosition: 'Top Left',
+  minWidth: 400,
+  maxWidth: 1080,
 };
 
 export const radioPositionValue = [

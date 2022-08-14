@@ -9,6 +9,8 @@ export function LabelerContainer({
   imageWidth,
   containerWidth,
   imagePosition,
+  minWidth,
+  maxWidth,
 }) {
   const step = 0;
   return (
@@ -23,6 +25,8 @@ export function LabelerContainer({
           imageWidth,
           containerWidth,
           imagePosition,
+          minWidth,
+          maxWidth,
         }}
       />
     </>

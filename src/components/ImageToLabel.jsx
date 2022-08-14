@@ -26,6 +26,8 @@ export function ImageToLabel({
   imageWidth,
   containerWidth,
   imagePosition,
+  minWidth,
+  maxWidth,
 }) {
   const [sliderImageWidth, setSliderImageWidth] = useState(imageWidth);
   const [sliderContainerWidth, setSliderContainerWidth] = useState(containerWidth);
@@ -41,9 +43,9 @@ export function ImageToLabel({
   };
 
   const handleSetImageWidthChange = (width) => {
-    const maxWidth = width >= sliderContainerWidth ? sliderContainerWidth : width;
-    handleSetImageWidth(maxWidth);
-    setSliderImageWidth(maxWidth);
+    const maximumWidth = width >= sliderContainerWidth ? sliderContainerWidth : width;
+    handleSetImageWidth(maximumWidth);
+    setSliderImageWidth(maximumWidth);
   };
 
   const handleSetContainerWidthChange = (width) => {
@@ -87,8 +89,8 @@ export function ImageToLabel({
         Container width
       </Heading>
       <Slider
-        min={640}
-        max={1080}
+        min={minWidth}
+        max={maxWidth}
         defaultValue={sliderContainerWidth}
         mt={8}
         aria-label="slider"
@@ -117,8 +119,8 @@ export function ImageToLabel({
         Image width
       </Heading>
       <Slider
-        min={400}
-        max={1080}
+        min={minWidth}
+        max={maxWidth}
         defaultValue={sliderImageWidth}
         mt={8}
         aria-label="slider"

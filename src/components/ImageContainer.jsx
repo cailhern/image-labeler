@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { ImageTags } from './ImageTags';
 
 export function ImageContainer({
@@ -8,10 +9,8 @@ export function ImageContainer({
   containerWidth,
   imagePosition,
 }) {
-  const [valueContainerWidth, valueContainerHeight] = [
-    `${containerWidth}px`,
-    `${Math.floor((containerWidth * 10) / 7)}px`,
-  ];
+  const [valueContainerWidth] = [`${containerWidth}px`];
+
   const [valueImageWidth, valueImageHeight] = [
     `${imageWidth}px`,
     `${Math.floor((imageWidth * 10) / 7)}px`,
@@ -19,36 +18,53 @@ export function ImageContainer({
 
   const containerStyles = {
     width: valueContainerWidth,
-    height: valueContainerHeight,
   };
 
-  const bgImageProperties = {
-    backgroundImage: `url(${imageUrl})`,
-    width: valueImageWidth,
-    height: valueImageHeight,
-    imagePosition,
+  const [imageProperties, setImageProperties] = useState({});
+
+  const imagePositionProperties = (positionY, positionX) => {
+    const {
+      left, right, top, bottom, center, ...cleanPosition
+    } = imageProperties;
+    setImageProperties({
+      ...cleanPosition,
+      [positionX]: '0',
+      [positionY]: '0',
+    });
   };
+
+  useEffect(() => {
+    const [positionY, positionX] = imagePosition.toLowerCase().split(' ');
+    imagePositionProperties(positionY, positionX);
+  }, [imagePosition]);
+
   return (
     <Box
-      m={4}
+      position="relative"
       bgColor="gray.600"
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyItems="center"
+      justifyContent="center"
       borderRadius="2xl"
+      overflow="hidden"
       {...containerStyles}
     >
+      <Image
+        src={imageUrl}
+        position="absolute"
+        width={valueImageWidth}
+        maxHeight={valueImageHeight}
+        {...imageProperties}
+      />
       <Box
-        backgroundPosition="top left"
-        backgroundSize="cover"
+        position="absolute"
         display="flex"
         flexDirection="column"
         alignItems="flex-end"
         justifyContent="flex-end"
-        borderRadius="2xl"
-        transform="revert"
-        {...bgImageProperties}
+        height="100%"
+        {...containerStyles}
       >
         <ImageTags {...tags} />
       </Box>

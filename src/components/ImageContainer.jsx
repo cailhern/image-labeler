@@ -16,10 +16,6 @@ export function ImageContainer({
     `${Math.floor((imageWidth * 10) / 7)}px`,
   ];
 
-  const containerStyles = {
-    width: valueContainerWidth,
-  };
-
   const [imageProperties, setImageProperties] = useState({});
 
   const imagePositionProperties = (positionY, positionX) => {
@@ -47,14 +43,15 @@ export function ImageContainer({
       alignItems="center"
       justifyContent="center"
       borderRadius="2xl"
-      overflow="hidden"
-      {...containerStyles}
+      width={valueContainerWidth}
     >
       <Image
         src={imageUrl}
         position="absolute"
         width={valueImageWidth}
-        maxHeight={valueImageHeight}
+        height={valueImageHeight}
+        borderRadius="2xl"
+        maxHeight="100%"
         {...imageProperties}
       />
       <Box
@@ -64,7 +61,7 @@ export function ImageContainer({
         alignItems="flex-end"
         justifyContent="flex-end"
         height="100%"
-        {...containerStyles}
+        width={valueContainerWidth}
       >
         <ImageTags {...tags} />
       </Box>
